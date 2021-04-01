@@ -6,7 +6,7 @@ import { Link, navigate } from '@reach/router';
 export default (props) => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [address, setAddress] = useState("");
+    // const [address, setAddress] = useState("");
     // const [type, setType] = useState("");
     // const [description, setDescription] = useState("");
     // const [price, setPrice] = useState(0);
@@ -19,7 +19,7 @@ export default (props) => {
         axios.post('http://localhost:8000/api/user', {
             firstName,
             lastName,
-            address,
+            // address,
             // type,
             // description,
             // price
@@ -27,8 +27,8 @@ export default (props) => {
             .then(res => {
                 console.log(res);
                 if (res.data.errors) {
-                    setErrors(res.data.errors.errors)
-                } else { navigate("/") }
+                    setErrors(res.data.errors)
+                } else { navigate("/homepage") }
             })
             .catch(err => console.log(err))
     }
@@ -50,9 +50,9 @@ export default (props) => {
                 <span> {errors.lastName ? errors.lastName.message : ''} </span>
                 <br/>
 
-                <label htmlFor="address" > Address: </label>
+                {/* <label htmlFor="address" > Address: </label>
                 <input type="text" name="address" onChange={(e) => setAddress(e.target.value)}
-                    value={address} />
+                    value={address} /> */}
                 <br/>
 
                 {/* <label htmlFor="Type">  Type: </label>

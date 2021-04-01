@@ -26,19 +26,19 @@ const UserSchema = new mongoose.Schema({
         required: [true, "A last name is required"],
         minlength: [2, "A  last name must be at least 3 characters long"]
     },
-    email: {
-        type: String,
-        required: [true, "An email is required"],
-        trim: true,
-        lowercase: true,
-        unique: true,
-        validate: [validateEmail, "Please enter a valid email."]
-    },
-    password: {
-        type: String,
-        required: [true, "A password is required"],
-        minlength: [8, "Your password must be at least 8 characters in length"]
-    }, 
+    // email: {
+    //     type: String,
+    //     required: [true, "An email is required"],
+    //     trim: true,
+    //     lowercase: true,
+    //     unique: true,
+    //     validate: [validateEmail, "Please enter a valid email."]
+    // },
+    // password: {
+    //     type: String,
+    //     required: [true, "A password is required"],
+    //     minlength: [8, "Your password must be at least 8 characters in length"]
+    // }, 
     // address: {
     //     street: {
     //         type: String,
@@ -71,24 +71,24 @@ const UserSchema = new mongoose.Schema({
 // near the top is a good place to group our imports
 
 // this should go after 
-UserSchema.pre('save', function (next) {
-    bcrypt.hash(this.password, 10)
-        .then(hash => {
-            this.password = hash;
-            next();
-        });
-});
-// add this after UserSchema is defined
-UserSchema.virtual('confirmPassword')
-    .get(() => this._confirmPassword)
-    .set(value => this._confirmPassword = value);
+// UserSchema.pre('save', function (next) {
+//     bcrypt.hash(this.password, 10)
+//         .then(hash => {
+//             this.password = hash;
+//             next();
+//         });
+// });
+// // add this after UserSchema is defined
+// UserSchema.virtual('confirmPassword')
+//     .get(() => this._confirmPassword)
+//     .set(value => this._confirmPassword = value);
 
-UserSchema.pre('validate', function (next) {
-    if (this.password !== this.confirmPassword) {
-        this.invalidate('confirmPassword', 'Password must match confirm password');
-    }
-    next();
-});
+// UserSchema.pre('validate', function (next) {
+//     if (this.password !== this.confirmPassword) {
+//         this.invalidate('confirmPassword', 'Password must match confirm password');
+//     }
+//     next();
+// });
 
 
 const User = mongoose.model("User", UserSchema);
