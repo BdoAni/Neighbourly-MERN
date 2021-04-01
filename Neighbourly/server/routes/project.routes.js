@@ -3,8 +3,8 @@ const ProjectController = require("../controllers/project.controller");
 module.exports = app => {
     // Creating a new author
     app.post("/api/user", ProjectController.createNewUser);
-    // app.post("/api/user/:id/tool", ProjectController.createNewTool);
-    // app.post("/api/user/:id/review", ProjectController.createNewReview);
+    app.post("/api/user/:id/tool", ProjectController.createNewTool);
+    app.post("/api/user/:id/review", ProjectController.createNewReview);
     app.post("/api/user/login", ProjectController.loginUser);
     // Read
     app.get("/api/user", ProjectController.getAllUsers);

@@ -6,10 +6,7 @@ import { Link, navigate } from '@reach/router';
 export default props => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [address, setAddress] = useState("");
-    const [type, setType] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState(0);
+    // const [address, setAddress] = useState("");
     const [loaded, setLoaded] = useState(false);
     const [errors, setErrors] = useState({});
     const [user, setUser] = useState({});
@@ -20,10 +17,7 @@ export default props => {
             .then(res => {
                 setFirstName(res.data.user.firstName);
                 setLastName(res.data.user.lastName);
-                setAddress(res.data.user.address);
-                setType(res.data.user.type);
-                setDescription(res.data.user.description);
-                setPrice(res.data.user.price)
+                // setAddress(res.data.user.address);
                 setLoaded(true);
             })
     }, []);
@@ -33,26 +27,24 @@ export default props => {
         axios.put(`http://localhost:8000/api/user/` + props.id, {
             firstName,
             lastName,
-            address,
-            type,
-            description,
-            price
+            // address,
         })
             .then(res => {
                 console.log(res);
                 if (res.data.errors) {
-                    setErrors(res.data.errors.errors)
-                } else { navigate("/") }
+                    setErrors(res.data.errors)
+                } else { navigate("/homepage") }
 
             })
             .catch(err => console.log(err))
     }
     return (
         <div>
+            <Link to={`/homepage`}> Home </Link><br />
             <h3> Edit {firstName} {lastName} </h3>
 
             <form onSubmit={updateUser} >
-                <Link to={`/`}> Home </Link><br />
+                
 
                 <p><label htmlFor="First Name" >First Name: </label>
                 <input type="text" name="firstName" onChange={(e) => setFirstName(e.target.value)}
@@ -64,24 +56,9 @@ export default props => {
                 value={lastName}/>
                 <span> {errors.lastName ? errors.lastName.message : ''} </span></p>
                 
-                <p><label htmlFor="address" > Address: </label>
+                {/* <p><label htmlFor="address" > Address: </label>
                 <input type="text" name="address" onChange={(e) => setAddress(e.target.value)}
-                value={address}/> </p>
-
-                {/* <label htmlFor="Type">  Type: </label>
-                <input type="text" name="type" onChange={(e) => setType(e.target.value)} value={type}/>
-                <span > {errors.type ? errors.type.message : ''} </span> 
-                <br/>
-                
-                <label htmlFor="Description" >  Description: </label><br/>
-                <input type="text" name="description" onChange={(e) => setDescription(e.target.value)} value={description}/><br/>
-                <span > {errors.description ? errors.description.message : ''} </span>
-                <br/>
-
-                <label htmlFor="price"> Price: </label><br/>
-                <input type="number" name="price" onChange={(e) => setPrice(e.target.value)} value={price}/>
-                <span > {errors.price ? errors.price.message : ''} </span>
-                <br/> */}
+                value={address}/> </p> */}
                 <br/>
                 <input type="submit" value="Edit User"/>
             </form>

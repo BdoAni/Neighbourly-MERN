@@ -45,6 +45,7 @@ module.exports.loginUser = async(req, res) => {
         })
         .json({ msg: "success!" });
 }
+//USERS//////////////////////
 module.exports.getAllUsers = (req, res) => {
     User.find()
         .then(user => res.json(user))
@@ -63,6 +64,58 @@ module.exports.updateUser = (req, res) => {
 module.exports.deleteUser = (req, res) => {
     User.deleteOne({ _id: req.params.id })
         .then(user => res.json({ user: user }))
+        .catch(err => res.json({ message: "Something went wrong", error: err }));
+};
+//TOOLS////////////////////////
+module.exports.createNewTool = (req, res) => {
+    Tool.create(req.body)
+        .then(tool => res.json({tool})
+        .catch(err => res.json(err)));
+};
+module.exports.getAllTools = (req, res) => {
+    Tool.find()
+        .then(tool => res.json(tool))
+        .catch(err => res.json({ message: "Something went wrong", error: err }));
+};
+module.exports.getOneTool = (req, res) => {
+    Tool.findOne({ _id: req.params.id })
+        .then(findeOneTool => res.json({ tool: findeOneTool }))
+        .catch(err => res.json({ message: "Something went wrong", error: err }));
+};
+module.exports.updateTool = (req, res) => {
+    Tool.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true })
+        .then(updateTool => res.json({ tool: updateTool }))
+        .catch(err => res.json({ message: "Something went wrong", error: err }));
+};
+module.exports.deleteUser = (req, res) => {
+    User.deleteOne({ _id: req.params.id })
+        .then(tool => res.json({ tool: tool }))
+        .catch(err => res.json({ message: "Something went wrong", error: err }));
+};
+//REVIEWS//////////////////////
+module.exports.createNewReview = (req, res) => {
+    Review.create(req.body)
+        .then(review => res.json({review})
+        .catch(err => res.json(err)));
+};
+module.exports.getAllReviews = (req, res) => {
+    Review.find()
+        .then(review => res.json(review))
+        .catch(err => res.json({ message: "Something went wrong", error: err }));
+};
+module.exports.getOneReview = (req, res) => {
+    Review.findOne({ _id: req.params.id })
+        .then(findeOneReview => res.json({ review: findeOneReview }))
+        .catch(err => res.json({ message: "Something went wrong", error: err }));
+};
+module.exports.updateReview = (req, res) => {
+    Review.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true })
+        .then(updateReview => res.json({ review: updateReview }))
+        .catch(err => res.json({ message: "Something went wrong", error: err }));
+};
+module.exports.deleteReview = (req, res) => {
+    Review.deleteOne({ _id: req.params.id })
+        .then(review => res.json({ review: review }))
         .catch(err => res.json({ message: "Something went wrong", error: err }));
 };
 // to add on the nested schema   add to the updateUser controller {$addToSet:{quotes: req.body}}()

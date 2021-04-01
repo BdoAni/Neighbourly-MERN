@@ -36,8 +36,9 @@ export default props => {
                             <td > {user?.tools?.type} </td>
                             <td >
                                 < Link to={`/users/${user._id}`} > < button> Details </button></Link > |
-                        < Link to={`/user/${user._id}/edit`} > <button> Edit </button></Link > |
-                        < Link to={`/user/${user._id}/new_tool`} > <button> Add Tool </button></Link >
+                                < Link to={`/user/${user._id}/edit`} > <button> Edit </button></Link > |
+                                < Link to = { `/user/${user._id}/connect` } ><button> Connect </button></Link >
+                                < Link to={`/user/${user._id}/new_tool`} > <button> Add Tool </button></Link >
                             </td>
                         </tr>)
                 })
